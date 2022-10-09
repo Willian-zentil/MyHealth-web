@@ -8,6 +8,9 @@
     <title>MyHealth | Login</title>
 </head>
 <body class="new-account pg-login">
+    <div class="loading"></div>
+    <img class="loading-gif" src="../assets//images/loading.gif" >
+
     <header>
         <div class="av-container">
             <div class="container-logo">
@@ -15,9 +18,6 @@
                     <img src="../assets/images/icon-vaccine.png" alt="Logo MyHealth">
                     <span>MyHealth</span>
                 </a>
-            </div>
-            <div>
-                <a href="./login.html" class="btn-primary tenho-conta">Já tenho conta</a>
             </div>
         </div>
     </header>
@@ -34,11 +34,20 @@
                     <label for="password">Senha</label>
                     <input id="password" type="password">
                 </div>
+                <span class="disclaimer">E-mail e/ou senha inválidos.</span>
             </form>
-            <input type="submit" value="Entrar" class="btn-verde">
+            <input type="submit" value="Entrar" class="btn-verde" onclick="login()">
             <a href="./esqueci-senha.html" class="esqueci-senha">esqueci minha senha</a>
         </div>
     </section>
     
 </body>
+
+<script src="../components/geral.js"></script>
+<script src="../components/login.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/9.11.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.11.0/firebase-auth-compat.js"></script>
+
+<script src="../components/firebase-config.js"></script>
 </html>

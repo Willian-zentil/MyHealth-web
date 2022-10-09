@@ -8,6 +8,9 @@
     <title>MyHealth | Login</title>
 </head>
 <body class="new-account pg-esqueci-senha">
+    <div class="loading"></div>
+    <img class="loading-gif" src="../assets//images/loading.gif" >
+
     <header>
         <div class="av-container">
             <div class="container-logo">
@@ -27,9 +30,15 @@
                     <input id="email" type="email">
                 </div>
             </form>
-            <input type="submit" value="Redefinir senha" class="btn-verde">
+            <input type="submit" value="Redefinir senha" class="btn-verde" onclick="resetPassword()">
         </div>
     </section>
     
 </body>
+
+<script src="https://www.gstatic.com/firebasejs/9.11.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.11.0/firebase-auth-compat.js"></script>
+
+<script src="../components/login.js"></script>
+<script src="../components/geral.js"></script>
 </html>

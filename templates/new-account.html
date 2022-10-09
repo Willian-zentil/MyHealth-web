@@ -8,6 +8,9 @@
     <title>MyHealth | Criar conta</title>
 </head>
 <body class="new-account">
+    <div class="loading"></div>
+    <img class="loading-gif" src="../assets//images/loading.gif" >
+
     <header>
         <div class="av-container">
             <div class="container-logo">
@@ -27,7 +30,7 @@
             <form action="">
                 <div>
                     <label for="name">Nome completo</label>
-                    <input id="name" type="text">
+                    <input id="name" type="text" required="required" name="text" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" onkeypress="return lettersOnly(event);" />
                 </div>
 
                 <div class="gender">
@@ -56,13 +59,21 @@
                 </div>
 
                 <div>
-                    <label for="repeat-password">Repetir senha</label>
-                    <input id="repeat-password" type="password">
+                    <label for="repeatPassword">Repetir senha</label>
+                    <input id="repeatPassword" type="password">
                 </div>
+                <span class="disclaimer">Senha não confere!</span>
             </form>
-            <input type="submit" value="Cadastrar" class="btn-verde">
+            <input type="submit" value="Cadastrar" class="btn-verde" onclick="newUser()" disabled>
         </div>
     </section>
     
 </body>
+<script src="../components/geral.js"></script>
+<script src="../components/login.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/9.11.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.11.0/firebase-auth-compat.js"></script>
+
+<script src="../components/firebase-config.js"></script>
 </html>
