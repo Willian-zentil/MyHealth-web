@@ -46,9 +46,6 @@ document.querySelectorAll('.cadastro-user input').forEach(element => {
         validaCampo()
     })
 });
-   
-
-
 
 function newUser() {
     loadingShow()
@@ -64,4 +61,60 @@ function newUser() {
 
 function getErrorMessage(error){
     return error.message
+}
+
+function logout(){
+    //document.querySelector(".logout")
+    firebase.auth().signOut().then(()=>{
+        loadingShow()
+        window.location.href = "/templates/login.html"
+    }).catch((error)=>{
+        getErrorMessage(error)
+    })
+}
+
+function showPreview(event){
+    if(event.target.files.length > 0){
+      var src = URL.createObjectURL(event.target.files[0]);
+      var preview = document.getElementById("file-ip-1-preview");
+      preview.src = src;
+      preview.style.display = "block";
+    }
+  }
+  
+function createVacina(){
+
+    let dose = document.querySelector(".container-label input:checked");
+    let vacina = document.getElementById("vacina")
+    let dataVacina = document.querySelector("#datavc")
+    let dataProxVacina = document.querySelector("#dataNext")
+    //let comprovante = document.getElementById("file-ip-1-preview").value
+
+    firebase.auth().onAuthStateChanged((user)=>{
+        if(user) {
+            const vacinas = firebase.firestore().collection('vacina');
+
+            try{
+                if(dose && vacina && dataVacina && dataProxVacina){
+                    vacinas.doc(user.uid).set({
+                        NextVacina: dataProxVacina.value, date: dataVacina.value, name: vacina.value, dose: dose.value, userId: user.uid
+                    })
+        
+                    alert("cadastro realizado com sucesso")
+                    window.location.href = "/templates/vacinas.html"
+                } else if(dose && vacina && dataVacina){
+                    vacinas.doc(user.uid).set({
+                        date: dataVacina.value, name: vacina.value, dose: dose.value, userId: user.uid
+                    })
+    
+                    alert("cadastro realizado com sucesso")
+                    window.location.href = "/templates/vacinas.html"
+                }else {
+                    alert("Preencha todos campos")
+                }
+            }catch(error){
+                console.log(error)
+            }
+        }
+    })
 }
