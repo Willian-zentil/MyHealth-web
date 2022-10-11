@@ -96,19 +96,26 @@ function createVacina(){
 
             try{
                 if(dose && vacina && dataVacina && dataProxVacina){
-                    vacinas.doc(user.uid).set({
+                    vacinas.doc(user.id).set({
                         NextVacina: dataProxVacina.value, date: dataVacina.value, name: vacina.value, dose: dose.value, userId: user.uid
                     })
         
                     alert("cadastro realizado com sucesso")
-                    window.location.href = "/templates/vacinas.html"
+                    loadingShow()
+                    setTimeout(() => {
+                        window.location.href = "/templates/vacinas.html"
+                    }, 2000);
                 } else if(dose && vacina && dataVacina){
-                    vacinas.doc(user.uid).set({
+                    vacinas.doc(user.id).set({
                         date: dataVacina.value, name: vacina.value, dose: dose.value, userId: user.uid
                     })
     
                     alert("cadastro realizado com sucesso")
-                    window.location.href = "/templates/vacinas.html"
+
+                    loadingShow()
+                    setTimeout(() => {
+                        window.location.href = "/templates/vacinas.html"
+                    }, 2000);
                 }else {
                     alert("Preencha todos campos")
                 }
