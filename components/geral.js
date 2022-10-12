@@ -125,3 +125,48 @@ function createVacina(){
         }
     })
 }
+
+function removeVacina(){
+    document.querySelector(".popup").style.display = "flex"
+    document.querySelector(".loading").classList.add("active")
+
+    document.querySelector(".btn-yes").addEventListener('click', ()=>{
+        let id = localStorage.getItem("vacinaId");
+        firebase.firestore().collection('vacina').doc(id).delete().then(()=>{
+            loadingHide
+            window.location.href = "/templates/vacinas.html"
+        }).catch(error => {
+            loadingHide
+            alert("Erro ao excluir")
+            console.log(error)
+        })
+    })
+    document.querySelector(".btn-no").addEventListener('click', ()=>{
+        hidepopUp()
+    })
+}
+
+function hidepopUp(){
+    document.querySelector(".popup").style.display = "none"
+    document.querySelector(".loading").classList.remove("active")
+}
+
+function saveVacina(){
+    loadingShow()
+
+    let dose = document.querySelector(".container-label input:checked");
+    let vacina = document.getElementById("vacina")
+    let dataVacina = document.querySelector("#datavc")
+    let dataProxVacina = document.querySelector("#dataNext")
+
+    let id = localStorage.getItem("vacinaId");
+
+    firebase.firestore().collection('vacina').doc(id).update({NextVacina: dataProxVacina.value, date: dataVacina.value, name: vacina.value, dose: dose.value}).then(()=>{
+        loadingHide
+        window.location.href = "/templates/vacinas.html"
+    }).catch(error => {
+        loadingHide
+        alert("Erro ao excluir")
+        console.log(error)
+    })
+}

@@ -75,6 +75,7 @@ header .container-btns a {
     width: 100%;
     padding: 18px;
     margin: 0 auto;
+    position: relative;
 }
 header {
     padding: 15px;
@@ -319,6 +320,66 @@ input[type="radio"]{
     flex-wrap: wrap;
     margin-bottom: 40px;
 }
+.popup {
+    background: #FFFFFF;
+    position: absolute;
+    width: 698px;
+    height: 317px;
+    z-index: 9999999;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 30%;
+    display: none;
+}
+.popup p {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+    /* identical to box height */
+    
+    text-align: center;
+    
+    color: #FD7979;
+    margin-bottom: 55px;
+}
+.btn-yes {
+    width: 216px;
+    height: 71px;    
+    background: #FF8383;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border: none;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 43px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-right: 25px;
+}
+.btn-no {
+    background: #3F92C5;
+    width: 216px;
+    height: 71px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border: none;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 43px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-left: 25px;
+}
 .card {
     margin: 0 33px 23px;
 }
@@ -334,6 +395,7 @@ input[type="radio"]{
     font-style: normal;
     text-decoration: unset;
     position: relative;
+    cursor: pointer;
 }
 .card h4{
     font-weight: 400;
@@ -403,5 +465,36 @@ input[type="radio"]{
 }
 .hasnot {
     display: none;
+}
+.popup div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-remove {
+    background: #FD7979;
+    width: 95px;
+    height: 44px;
+    text-align: center;
+    padding-left: 32px;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+}
+.container-remove {
+    width: max-content;
+    position: absolute;
+    right: 31px;
+}
+.container-remove img {
+    position: absolute;
+    top: 9px;
+    left: 6px;
 }
 /*internas fim*/

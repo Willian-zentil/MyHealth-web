@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../assets/styles.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>MyHealth | vacina</title>
+</head>
+<body class="newvacina">
+    <div class="loading"></div>
+    <img class="loading-gif" src="../assets//images/loading.gif" >
+    <div class="popup">
+        <p>Tem certeza que deseja remover essa vacina?</p>
+        <div>
+            <input class="btn-yes" type="button" value="sim" placeholder="SIM">
+            <input class="btn-no" type="button" value="cancelar" placeholder="CANCELAR">
+        </div>
+    </div>
+    
+    <header>
+        <div class="av-container">
+            <div class="container-logo">
+                <a href="./index.html">
+                    <img src="../assets/images/icon-vaccine.png" alt="Logo MyHealth">
+                    <span>MyHealth</span>
+                </a>
+            </div>
+            <div class="container-btns">
+                <a href="./vacinas.html" class="btn-primary tenho-conta">Minhas vacinas</a>
+                <a class="btn-primary tenho-conta logout" onclick="logout()">Logout</a>
+            </div>
+        </div>
+    </header>   
+
+    <section class="av-container">
+        <div class="container-remove">
+            <a class="btn-remove" onclick="removeVacina()">
+                <img src="../assets/images/trash.svg">Excluir
+            </a>
+        </div>
+        <div class="cadastro-vacina">
+            <form action="">
+                <div>
+                    <label for="data">Data de vascinação</label>
+                    <div class="container-label">
+                        <input id="datavc" type="date">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="email">Vacina</label>
+                    <div class="container-label">
+                        <input id="vacina" type="text">
+                    </div>
+                </div>
+
+                <div class="gender">
+                    <label for="name">Dose</label>
+                    <div class="container-label">
+                        <input type="radio" id="doseOne" value="1a. dose" name="dose">
+                        <label for="doseOne">1a. dose</label>
+                        <input type="radio" id="doseTwo" value="2a. dose" name="dose">
+                        <label for="doseTwo">2a. dose</label>
+                        <input type="radio" id="doseThree" value="3a. dose" name="dose">
+                        <label for="doseThree">3a. dose</label>
+                        <input type="radio" id="reforco" value="Reforço" name="dose">
+                        <label for="reforco">Reforço</label>
+                        <input type="radio" id="unica" value="Dose única" name="dose">
+                        <label for="unica">Dose única</label>
+                    </div>
+                </div>
+
+                <div class="arquivo-container">
+                    <label for="file-ip-1">Comprovante da vacina</label>
+                    <div class="arquivo container-label">
+                        <input type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event);">
+                        <label for="file-ip-1">Selecionar imagem...</label>
+                        <div class="preview">
+                            <img id="file-ip-1-preview">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div>
+                    <label for="data">Próxima vacinação</label>
+                    <div class="container-label">
+                        <input id="dataNext" type="date">
+                    </div>
+                </div>
+            </form>
+            <input type="submit" value="Salvar alterações" class="btn-verde" onclick="saveVacina()">
+        </div>
+    </section>
+    
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/9.11.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.11.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.11.0/firebase-firestore-compat.js"></script>
+
+<script src="../components/geral.js"></script>
+<script src="../components/login.js"></script>
+<script src="../components/getVacina.js"></script>
+
+<script src="../components/firebase-config.js"></script>
+<script src="../components/firebase-guard.js"></script>
+</html>
+</html>
