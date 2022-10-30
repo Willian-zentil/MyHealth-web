@@ -1,4 +1,31 @@
 
+const body = document.querySelector('body')
+
+document.querySelectorAll('.cadastro-user input').forEach(element => {
+    element.addEventListener('keyup', ()=>{
+        validaCampo()
+    })
+});
+
+if(body.classList.contains('newvacina')){
+    document.getElementById("unica").addEventListener("change", ()=>{
+        document.getElementById("dataNext").value = null
+        document.getElementById("dataNext").setAttribute('disabled', '');
+    })
+    
+    document.getElementById("unica").addEventListener("focusout", ()=>{
+        document.querySelectorAll(".gender input:not(#unica)").forEach(element => { 
+            setTimeout(() => {
+                if(element.checked){
+                    document.getElementById("dataNext").removeAttribute('disabled', '');
+                }
+            }, 200);
+        }) 
+    })
+}
+
+
+
 function lettersOnly(evt) {
     evt = (evt) ? evt : event;
     var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
@@ -29,7 +56,6 @@ function validaCampo(){
     let feminino = document.getElementById("feminino").value
     let datNasc = document.getElementById("data").value
 
-    console.log(name, masculino, feminino, datNasc)
     if(email && name && datNasc && (masculino || feminino)){
         if(password != repeatPassword){
             document.querySelector(".disclaimer").classList.add("active")
@@ -41,11 +67,22 @@ function validaCampo(){
     
 }
 
-document.querySelectorAll('.cadastro-user input').forEach(element => {
-    element.addEventListener('keyup', ()=>{
-        validaCampo()
-    })
-});
+function search(e){
+    let title = ''
+    let searchTxt = e.value.toLowerCase()
+
+    document.querySelectorAll(".card h4").forEach(item => {
+        title = item.textContent.toLowerCase()
+
+        if(!title.includes(searchTxt)){
+            item.parentElement.parentElement.classList.add("hide")
+            item.parentElement.parentElement.classList.remove("show")
+        }else {
+            item.parentElement.parentElement.classList.remove("hide")
+            item.parentElement.parentElement.classList.add("show")
+        }
+    });
+}
 
 function newUser() {
     loadingShow()
@@ -82,22 +119,28 @@ function showPreview(event){
     }
   }
   
-function createVacina(){
+async function createVacina(){
 
     let dose = document.querySelector(".container-label input:checked");
     let vacina = document.getElementById("vacina")
     let dataVacina = document.querySelector("#datavc")
     let dataProxVacina = document.querySelector("#dataNext")
-    //let comprovante = document.getElementById("file-ip-1-preview").value
+    let file = document.getElementById("file-ip-1").files[0]
 
+    const storageRef = firebase.storage().ref()
+    const fileRef = storageRef.child(file.name)
+
+    await fileRef.put(file)
+    const fileUrl = await fileRef.getDownloadURL()
+    
     firebase.auth().onAuthStateChanged((user)=>{
         if(user) {
             const vacinas = firebase.firestore().collection('vacina');
 
             try{
-                if(dose && vacina && dataVacina && dataProxVacina){
+                if(dose.value && vacina.value && dataVacina.value && dataProxVacina.value){
                     vacinas.doc(user.id).set({
-                        NextVacina: dataProxVacina.value, date: dataVacina.value, name: vacina.value, dose: dose.value, userId: user.uid
+                        NextVacina: dataProxVacina.value, date: dataVacina.value, name: vacina.value, dose: dose.value, userId: user.uid, urlFoto: fileUrl
                     })
         
                     alert("cadastro realizado com sucesso")
@@ -105,9 +148,9 @@ function createVacina(){
                     setTimeout(() => {
                         window.location.href = "/templates/vacinas.html"
                     }, 2000);
-                } else if(dose && vacina && dataVacina){
+                } else if(dose.value && dose.classList.contains('unica') &&vacina.value && dataVacina.value){
                     vacinas.doc(user.id).set({
-                        date: dataVacina.value, name: vacina.value, dose: dose.value, userId: user.uid
+                        date: dataVacina.value, name: vacina.value, dose: dose.value, userId: user.uid, urlFoto: fileUrl
                     })
     
                     alert("cadastro realizado com sucesso")
@@ -121,6 +164,7 @@ function createVacina(){
                 }
             }catch(error){
                 console.log(error)
+                alert("Preencha todos campos")
             }
         }
     })
@@ -151,7 +195,7 @@ function hidepopUp(){
     document.querySelector(".loading").classList.remove("active")
 }
 
-function saveVacina(){
+async function saveVacina(){
     loadingShow()
 
     let dose = document.querySelector(".container-label input:checked");
@@ -161,12 +205,32 @@ function saveVacina(){
 
     let id = localStorage.getItem("vacinaId");
 
-    firebase.firestore().collection('vacina').doc(id).update({NextVacina: dataProxVacina.value, date: dataVacina.value, name: vacina.value, dose: dose.value}).then(()=>{
-        loadingHide
-        window.location.href = "/templates/vacinas.html"
-    }).catch(error => {
-        loadingHide
-        alert("Erro ao excluir")
-        console.log(error)
-    })
+    let file = document.getElementById("file-ip-1").files[0]
+
+    const storageRef = firebase.storage().ref()
+
+    if(file){
+        const fileRef = storageRef.child(file.name)
+
+        await fileRef.put(file)
+        const fileUrl = await fileRef.getDownloadURL()
+
+        firebase.firestore().collection('vacina').doc(id).update({NextVacina: dataProxVacina.value, date: dataVacina.value, name: vacina.value, dose: dose.value, urlFoto: fileUrl}).then(()=>{
+            loadingHide
+            window.location.href = "/templates/vacinas.html"
+        }).catch(error => {
+            loadingHide
+            alert("Erro ao excluir")
+            console.log(error)
+        })
+    }else {
+        firebase.firestore().collection('vacina').doc(id).update({NextVacina: dataProxVacina.value, date: dataVacina.value, name: vacina.value, dose: dose.value}).then(()=>{
+            loadingHide
+            window.location.href = "/templates/vacinas.html"
+        }).catch(error => {
+            loadingHide
+            alert("Erro ao excluir")
+            console.log(error)
+        })
+    }
 }

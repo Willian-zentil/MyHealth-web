@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="../assets/styles.css">
+    <link rel="icon" type="image/x-icon" href="../assets/images/favicon.png">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,21 +28,11 @@
     </header>   
     <div class="av-container">
         <div class="search">
-            <input type="text" placeholder="PESQUISAR VACINA...">
+            <input type="text" placeholder="PESQUISAR VACINA..." class="search-box" id="search" onkeyup="search(event.target)">
             <img src="/assets//images/search.svg">
         </div>
 
-        <div class="list-cards">
-            <div class="card" style="display: none;">
-                <a href="">
-                    <h4>BCC</h4>
-                    <span>Dose única</span>
-                    <p>11/06/2022</p>
-                    <img src="../assets/images/rotulo.jfif">
-                    <em>Não há próxima dose</em>
-                </a>
-            </div>
-        </div>
+        <div class="list-cards"></div>
         <input type="submit" value="Nova vacina" class="btn-verde" onclick="window.location.href = './nova-vacina.html'">
     </div>
 </body>
@@ -52,6 +43,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.11.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.11.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.11.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.11.0/firebase-storage-compat.js"></script>
 
 <script src="../components/firebase-config.js"></script>
 <script src="../components/firebase-guard.js"></script>

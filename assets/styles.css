@@ -10,6 +10,14 @@ p {
     font-family: 'Averia Libre';
 }
 
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
 input {
     font-style: normal;
     font-weight: 400;
