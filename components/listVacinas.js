@@ -14,8 +14,6 @@ window.onload = function() {
                     let item = doc._delegate._document.data.value.mapValue.fields;
                     keyId = doc._delegate._document.key.path.segments[6]
 
-                    console.log('here', item.name.stringValue, item.NextVacina)
-
                     if(item.userId.stringValue == user.uid){
                         div += `<div class="card">
                             <a id="${keyId}">
